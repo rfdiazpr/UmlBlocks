@@ -7,7 +7,10 @@
 		<Option compiler="gcc" />
 		<Option show_notes="0">
 			<notes>
-				<![CDATA[CB SVN Version may need to be 10127; since that is the version used by the source code editor (LETARTARE). I am testing with a later SVN version.]]>
+				<![CDATA[CB SVN Version may need to be 10127; since that is the version used by the source code editor (LETARTARE). I am testing with a later SVN version.
+
+NOTE: The file wxmsw28u_wxsf.dll needs to be hand copied to the folder holding the codeblocks.exe.
+]]>
 			</notes>
 		</Option>
 		<Build>
