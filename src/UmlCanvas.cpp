@@ -1,5 +1,6 @@
+#include "sdk.h" // Code::Blocks SDK PCH needs to be the first file included.
+
 #include "UmlCanvas.hpp"
-#include <sdk.h>
 
 BEGIN_EVENT_TABLE(UmlCanvas, wxSFShapeCanvas)
 	EVT_KEY_DOWN(UmlCanvas::OnKeyDown)

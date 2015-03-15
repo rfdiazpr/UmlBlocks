@@ -6,13 +6,16 @@
 #include <wx/listbox.h>
 #include <wx/button.h>
 #include <wx/textctrl.h>
+
 #include <wx/checkbox.h>
 #include <wx/choice.h>
+#include <wx/msgdlg.h>
 #include <wx/spinctrl.h>
 #include <wx/stattext.h>
+#include <wx/xrc/xmlres.h>
+
 #include "MemberVar.hpp"
 #include "MemberFunc.hpp"
-#include <sdk.h> // Code::Blocks SDK
 
 class ClassDialog: public wxDialog
 {

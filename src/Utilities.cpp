@@ -1,5 +1,11 @@
+#include "sdk.h" // Code::Blocks SDK PCH needs to be the first file included.
+
+#ifndef CB_PRECOMP
+    #include <manager.h>
+    #include <logmanager.h>
+#endif // #ifndef CB_PRECOMP
+
 #include "Utilities.hpp"
-#include <sdk.h>
 
 wxString int_to_string(int a)
 {

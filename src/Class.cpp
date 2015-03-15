@@ -1,9 +1,9 @@
+#include "sdk.h" // Code::Blocks SDK PCH needs to be the first file included.
+
 #include "Class.hpp"
-#include <sdk.h>
 #include "wx/wxsf/ShapeCanvas.h"
 #include "wx/wxsf/CommonFcn.h"
 #include "Utilities.hpp"
-//#include <wx/wx.h>
 
 using namespace wxSFCommonFcn;
 

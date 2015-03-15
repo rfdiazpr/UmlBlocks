@@ -1,11 +1,23 @@
-#include <sdk.h> // Code::Blocks SDK
+#include "sdk.h" // Code::Blocks SDK PCH needs to be the first file included.
+
+#ifndef CB_PRECOMP
+    // wxWidgets non GUI headers in sdk_common.h
+
+    // wxWidgets GUI headers in sdk_common.h
+    #include <wx/dialog.h>
+
+    // CB SDK Headers in sdk_common.h
+    #include <editormanager.h>
+    #include <logmanager.h>
+    #include <projectmanager.h>
+#endif // #ifndef CB_PRECOMP
+
 #include <configurationpanel.h>
 #include "UmlBlocks.hpp"
 
 #include "UmlCanvas.hpp"
 #include "Class.hpp"
 #include "ClassDialog.hpp"
-#include <wx/dialog.h>
 #include "Utilities.hpp"
 
 // Register the plugin with Code::Blocks.

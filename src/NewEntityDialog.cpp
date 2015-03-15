@@ -1,5 +1,10 @@
+#include "sdk.h" // Code::Blocks SDK PCH needs to be the first file included.
+
+#ifndef CB_PRECOMP
+    #include <manager.h>
+#endif // #ifndef CB_PRECOMP
+
 #include "NewEntityDialog.hpp"
-#include <sdk.h>
 
 NewEntityDialog::NewEntityDialog(int selection)
 {

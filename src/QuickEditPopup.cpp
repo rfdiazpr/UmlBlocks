@@ -1,5 +1,10 @@
+#include "sdk.h" // Code::Blocks SDK PCH needs to be the first file included.
+
+#ifndef CB_PRECOMP
+    #include <manager.h>
+#endif // #ifndef CB_PRECOMP
+
 #include "QuickEditPopup.hpp"
-#include <sdk.h>
 
 QuickEditPopup::QuickEditPopup(const wxPoint& a_Position):wxPopupTransientWindow(Manager::Get()->GetAppWindow())
 {
