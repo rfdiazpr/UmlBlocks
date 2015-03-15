@@ -89,11 +89,14 @@ CB = $(#cbxxxx)]]>
 			<Add library="wxmsw28u" />
 		</Linker>
 		<ExtraCommands>
-			<Add after="zip -j9 UmlBlocks.zip manifest.xml *.xrc" />
+			<Add after="zip -j9 UmlBlocks.zip manifest.xml forms/*.xrc" />
 			<Add after="zip -j9 UmlBlocks.cbplugin UmlBlocks.dll UmlBlocks.zip" />
 			<Mode after="always" />
 		</ExtraCommands>
 		<Unit filename="ClassDialog.xrc">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="forms/ClassDialog.xrc">
 			<Option target="release" />
 		</Unit>
 		<Unit filename="infos/umlBlocks.his">
