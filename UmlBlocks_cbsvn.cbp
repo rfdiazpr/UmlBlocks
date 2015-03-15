@@ -51,36 +51,36 @@
 					<Add directory="$(#wxsf)/lib/gcc_dll" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="zip -j9 UmlBlocks.zip manifest.xml *.xrc" />
+					<Add after="zip -j9 UmlBlocks.zip manifest.xml forms\*.xrc" />
 					<Add after="zip -j9 UmlBlocks.cbplugin UmlBlocks.dll UmlBlocks.zip" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 		</Build>
-		<Unit filename="Class.cpp" />
-		<Unit filename="Class.hpp" />
-		<Unit filename="ClassDialog.cpp" />
-		<Unit filename="ClassDialog.hpp" />
-		<Unit filename="ClassDialog.xrc" />
-		<Unit filename="Member.cpp" />
-		<Unit filename="Member.hpp" />
-		<Unit filename="MemberFunc.cpp" />
-		<Unit filename="MemberFunc.hpp" />
-		<Unit filename="MemberVar.cpp" />
-		<Unit filename="MemberVar.hpp" />
-		<Unit filename="NewEntityDialog.cpp" />
-		<Unit filename="NewEntityDialog.hpp" />
-		<Unit filename="QuickEditPopup.cpp" />
-		<Unit filename="QuickEditPopup.hpp" />
-		<Unit filename="UmlBlocks.cpp" />
-		<Unit filename="UmlBlocks.hpp" />
-		<Unit filename="UmlCanvas.cpp" />
-		<Unit filename="UmlCanvas.hpp" />
-		<Unit filename="UmlEditor.cpp" />
-		<Unit filename="UmlEditor.hpp" />
-		<Unit filename="Utilities.cpp" />
-		<Unit filename="Utilities.hpp" />
+		<Unit filename="forms/ClassDialog.xrc" />
 		<Unit filename="manifest.xml" />
+		<Unit filename="src/Class.cpp" />
+		<Unit filename="src/Class.hpp" />
+		<Unit filename="src/ClassDialog.cpp" />
+		<Unit filename="src/ClassDialog.hpp" />
+		<Unit filename="src/Member.cpp" />
+		<Unit filename="src/Member.hpp" />
+		<Unit filename="src/MemberFunc.cpp" />
+		<Unit filename="src/MemberFunc.hpp" />
+		<Unit filename="src/MemberVar.cpp" />
+		<Unit filename="src/MemberVar.hpp" />
+		<Unit filename="src/NewEntityDialog.cpp" />
+		<Unit filename="src/NewEntityDialog.hpp" />
+		<Unit filename="src/QuickEditPopup.cpp" />
+		<Unit filename="src/QuickEditPopup.hpp" />
+		<Unit filename="src/UmlBlocks.cpp" />
+		<Unit filename="src/UmlBlocks.hpp" />
+		<Unit filename="src/UmlCanvas.cpp" />
+		<Unit filename="src/UmlCanvas.hpp" />
+		<Unit filename="src/UmlEditor.cpp" />
+		<Unit filename="src/UmlEditor.hpp" />
+		<Unit filename="src/Utilities.cpp" />
+		<Unit filename="src/Utilities.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
