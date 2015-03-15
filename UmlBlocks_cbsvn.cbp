@@ -2,17 +2,9 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="UmlBlocks CB SVN" />
+		<Option title="UmlBlocks-0.2 CB SVN" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<MakeCommands>
-			<Build command="" />
-			<CompileFile command="" />
-			<Clean command="" />
-			<DistClean command="" />
-			<AskRebuildNeeded command="" />
-			<SilentBuild command=" &gt; $(CMD_NULL)" />
-		</MakeCommands>
 		<Build>
 			<Target title="default">
 				<Option output="UmlBlocks" prefix_auto="1" extension_auto="1" />
