@@ -11,27 +11,30 @@ NewEntityDialog::~NewEntityDialog()
     //dtor
 }
 
-bool NewEntityDialog::Create(int a){
+bool NewEntityDialog::Create(int a)
+{
     Initialize();
     switch (a){
-    case 1:
-        ShowWidgetsA();
-        break;
-    case 2:
-        break;
+        case 1:
+            ShowWidgetsA();
+            break;
+        case 2:
+            break;
     }
 }
 
-void NewEntityDialog::Initialize(){
-    wxDialog::Create(Manager::Get()->GetAppWindow(),Manager::Get()->GetAppWindow()->GetId(),wxT("dat a class"),wxDefaultPosition,wxSize(500,500));
-    radbox1 = new wxRadioBox(this,this->GetId(),wxT("Options"),wxPoint(5,70),wxSize(485,150));
-    choice11 = new wxRadioButton(this,this->GetId(),wxT("Choice"),wxPoint(10,20));
-    choice12 = new wxRadioButton(this,this->GetId(),wxT("Choice"),wxPoint(10,40));
+void NewEntityDialog::Initialize()
+{
+    wxDialog::Create(Manager::Get()->GetAppWindow(),Manager::Get()->GetAppWindow()->GetId(), _T("dat a class"),wxDefaultPosition,wxSize(500,500));
+    radbox1 = new wxRadioBox(this,this->GetId(),_("Options"),wxPoint(5,70),wxSize(485,150));
+    choice11 = new wxRadioButton(this,this->GetId(), _("Choice"),wxPoint(10,20));
+    choice12 = new wxRadioButton(this,this->GetId(), _("Choice"),wxPoint(10,40));
     choice12->Enable(false);
 }
 
-void NewEntityDialog::ShowWidgetsA(){
-    SetTitle(wxT("Add a class"));
+void NewEntityDialog::ShowWidgetsA()
+{
+    SetTitle(_("Add a class"));
     choice11->SetValue(true);
     DeactivateWidgets();
     radbox1->Show(true);
@@ -39,7 +42,8 @@ void NewEntityDialog::ShowWidgetsA(){
     choice12->Show(true);
 }
 
-void NewEntityDialog::DeactivateWidgets(){
+void NewEntityDialog::DeactivateWidgets()
+{
     radbox1->Show(false);
     choice11->Show(false);
     choice12->Show(false);

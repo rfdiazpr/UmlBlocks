@@ -3,18 +3,19 @@
 
 #include <wx/String.h>
 #include "Member.hpp"
+
 class MemberVar : public Member
 {
     public:
-        MemberVar(const wxString& a_name = wxT("NewVariable"),
-				  const wxString& a_type = wxT("int"),
+        MemberVar(const wxString& a_name = _T("NewVariable"),
+				  const wxString& a_type = _T("int"),
 				  Accessibility a_access = Public,
 				  int a_array = 0,
 				  int a_pointer = 0,
 				  bool a_reference = false,
 				  bool a_static = false,
 				  bool a_const = false,
-				  const wxString& a_defval = wxT(""));
+				  const wxString& a_defval = _T(""));
 		//MemberVar(const MemberVar&);
         virtual ~MemberVar();
 

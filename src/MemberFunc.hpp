@@ -5,12 +5,13 @@
 #include <wx/String.h>
 #include "MemberVar.hpp"
 #include "Member.hpp"
+
 class MemberFunc : public Member
 {
     public:
         /** Default constructor */
-        MemberFunc(const wxString& a_name = wxT("NewFunction"),
-				   const wxString& a_type = wxT("int"),
+        MemberFunc(const wxString& a_name = _T("NewFunction"),
+				   const wxString& a_type = _T("int"),
 				   Accessibility a_access = Public,
 				   const std::vector<MemberVar>& a_parameters = std::vector<MemberVar>(),
 				   int a_array = 0,

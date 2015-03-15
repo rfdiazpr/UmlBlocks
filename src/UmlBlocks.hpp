@@ -67,8 +67,8 @@ class UmlBlocks : public cbPlugin
 
     private:
 		// Variables
-        wxMenu* NewFileMenu = 0; //Good old file menu
-        wxMenu* UMLMenu = 0; //New Menu
+        wxMenu* NewFileMenu ;// = 0; //Good old file menu
+        wxMenu* UMLMenu ;//= 0; //New Menu
 
 		// Functions
         void SetUmlTools(bool);

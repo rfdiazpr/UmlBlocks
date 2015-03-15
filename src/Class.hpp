@@ -7,7 +7,8 @@
 #include <wx/wxsf/ShapeBase.h>
 #include "MemberFunc.hpp"
 
-class Class : public wxSFShapeBase {
+class Class : public wxSFShapeBase
+{
 public:
     XS_DECLARE_CLONABLE_CLASS(Class);
 
@@ -38,10 +39,10 @@ private:
     wxBrush m_FillColour;
     wxFont m_Font;
 	wxCoord m_Width;
-	wxCoord m_WidthLimit = 200;
+	wxCoord m_WidthLimit ; // = 200;
 	wxCoord m_VarFieldHeight;
 	wxCoord m_FuncFieldHeight;
-	bool m_SizeRefresh = true;
+	bool m_SizeRefresh ; //= true;
 	wxSize m_BoundingSize;
 
 	wxSize m_NameField;

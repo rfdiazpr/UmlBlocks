@@ -16,8 +16,8 @@ enum MemberGroup{
 class Member
 {
     public:
-        Member(const wxString& a_name = wxT("NewMember"),
-			   const wxString& a_type = wxT("void"),
+        Member(const wxString& a_name = _T("NewMember"),
+			   const wxString& a_type = _T("void"),
 			   Accessibility a_access = Public,
 			   int a_array = 0,
 			   unsigned int a_pointer = 0,
@@ -75,7 +75,9 @@ class Member
         bool m_Const;
 
         wxString m_UmlString;
-        bool m_UmlRefresh = true;
+/// LETARTARE
+        bool m_UmlRefresh ; // = true;
+
 };
 
 #endif // Member_HPP

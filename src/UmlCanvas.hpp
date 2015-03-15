@@ -29,7 +29,7 @@ private:
 	// Double click, see if you want it created and shown.
 	// Click anywhere and the box disappears and gets destroyed without changes
 	// Press enter and the box will disappear, change the data according to the dialog and destroy it
-	QuickEditPopup* EditDiag = 0;
+	QuickEditPopup* EditDiag ; //= 0;
 	UmlEditor* m_Editor;
 };
 

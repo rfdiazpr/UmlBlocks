@@ -10,8 +10,8 @@ MemberVar::MemberVar(const wxString& a_name,
 					 bool a_static,
 					 bool a_const,
 					 const wxString& a_defval)
-: Member(a_name, a_type, a_access, a_array, a_pointer, a_reference, a_static, a_const),
-m_DefaultVal(a_defval)
+	: Member(a_name, a_type, a_access, a_array, a_pointer, a_reference, a_static, a_const),
+	m_DefaultVal(a_defval)
 {
     UpdateUmlString();
 }
@@ -26,7 +26,8 @@ MemberVar::~MemberVar()
     //dtor
 }
 
-void MemberVar::CalcUmlString() {
+void MemberVar::CalcUmlString()
+{
 	Member::CalcUmlString();
     wxString strng = GetUmlString();
 

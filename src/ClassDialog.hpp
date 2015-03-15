@@ -13,6 +13,7 @@
 #include "MemberVar.hpp"
 #include "MemberFunc.hpp"
 #include <sdk.h> // Code::Blocks SDK
+
 class ClassDialog: public wxDialog
 {
 public:
@@ -33,8 +34,8 @@ private:
 	std::vector<wxString> m_Inherited;
 
 	// Variables
-	int m_SelectedParamItem = -1;
-	int m_SelectedMemberItem = -1;
+	int m_SelectedParamItem ;  //= -1;
+	int m_SelectedMemberItem ; //= -1;
 	MemberGroup m_SelectedMemberList;
 
     // Controls

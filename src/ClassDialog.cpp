@@ -42,7 +42,10 @@ BEGIN_EVENT_TABLE(ClassDialog,wxDialog)
 
 END_EVENT_TABLE()
 
-ClassDialog::ClassDialog(wxWindow* parent) {
+ClassDialog::ClassDialog(wxWindow* parent)
+// LETARTARE
+	: m_SelectedParamItem(-1), m_SelectedMemberItem(-1)
+{
 	wxXmlResource::Get()->LoadObject(this,parent,_T("ClassDialog"),_T("wxDialog")); // Loads the entire thing
 
     // Prepare easy access, sacrificing memrory for performance
@@ -111,55 +114,62 @@ ClassDialog::ClassDialog(wxWindow* parent) {
 	m_sxtParamsPointerDpth =XRCCTRL(*this, "sxtParamsPointerDpth",	wxStaticText);
 
 	// Load Types
-	m_chcMemberType->Append(wxT("External Type..."));
-	m_chcMemberType->Append(wxT("bool"));
-	m_chcMemberType->Append(wxT("char"));
-	m_chcMemberType->Append(wxT("short"));
-	m_chcMemberType->Append(wxT("unsigned short"));
-	m_chcMemberType->Append(wxT("int"));
-	m_chcMemberType->Append(wxT("unsigned int"));
-	m_chcMemberType->Append(wxT("long"));
-	m_chcMemberType->Append(wxT("unsigned long"));
+	m_chcMemberType->Append(_T("External Type..."));
+	m_chcMemberType->Append(_T("bool"));
+	m_chcMemberType->Append(_T("char"));
+	m_chcMemberType->Append(_T("short"));
+	m_chcMemberType->Append(_T("unsigned short"));
+	m_chcMemberType->Append(_T("int"));
+	m_chcMemberType->Append(_T("unsigned int"));
+	m_chcMemberType->Append(_T("long"));
+	m_chcMemberType->Append(_T("unsigned long"));
 
-	m_chcParamsType->Append(wxT("External Type..."));
-	m_chcParamsType->Append(wxT("bool"));
-	m_chcParamsType->Append(wxT("char"));
-	m_chcParamsType->Append(wxT("short"));
-	m_chcParamsType->Append(wxT("unsigned short"));
-	m_chcParamsType->Append(wxT("int"));
-	m_chcParamsType->Append(wxT("unsigned int"));
-	m_chcParamsType->Append(wxT("long"));
-	m_chcParamsType->Append(wxT("unsigned long"));
+	m_chcParamsType->Append(_T("External Type..."));
+	m_chcParamsType->Append(_T("bool"));
+	m_chcParamsType->Append(_T("char"));
+	m_chcParamsType->Append(_T("short"));
+	m_chcParamsType->Append(_T("unsigned short"));
+	m_chcParamsType->Append(_T("int"));
+	m_chcParamsType->Append(_T("unsigned int"));
+	m_chcParamsType->Append(_T("long"));
+	m_chcParamsType->Append(_T("unsigned long"));
 
-	m_chcInheritClass->Append(wxT("External class..."));
+	m_chcInheritClass->Append(_T("External class..."));
 }
 
-ClassDialog::~ClassDialog() {
+ClassDialog::~ClassDialog()
+{
 }
 
 //-------------------------------------------------
 // ***Functions***
 //-------------------------------------------------
-void ClassDialog::SelectMember(MemberGroup l, int selection) {
+void ClassDialog::SelectMember(MemberGroup l, int selection)
+{
 	// If you choose Variables after having Functions selected
-	if (l == Variables && m_SelectedMemberList == Functions) {
+	if (l == Variables && m_SelectedMemberList == Functions)
+	{
 		m_chcMemberType->Delete(0);
 		m_chcMemberType->Delete(0);
 	}
 	// If you choose Functions and Functions weren't previously selected
-	else if (l == Functions && m_SelectedMemberList != Functions){
-		m_chcMemberType->Insert(wxT("Constructor"),0);
-		m_chcMemberType->Insert(wxT("Destructor"),1);
+	else
+	if (l == Functions && m_SelectedMemberList != Functions)
+	{
+		m_chcMemberType->Insert(_T("Constructor"),0);
+		m_chcMemberType->Insert(_T("Destructor"),1);
 	}
 
 	m_SelectedMemberList = l;
 	m_SelectedMemberItem = selection;
 }
-void ClassDialog::SelectParameter(int selection) {
+void ClassDialog::SelectParameter(int selection)
+{
 	m_SelectedParamItem = selection;
 }
 
-void ClassDialog::LoadMember() {
+void ClassDialog::LoadMember()
+{
 	// Check if there's even anything chosen
 	if (m_SelectedMemberItem == -1)
 		return; // In that case, don't do anything
@@ -175,20 +185,25 @@ void ClassDialog::LoadMember() {
 
 	// The functions can only get ctor and dtor assigned if they're functions anyways,
 	// but for the sake of performance, less if's to run through as a variable or something
-	if (m_SelectedMemberList == Functions) {
-		if (mem->GetType() == wxT("ctor"))
+	if (m_SelectedMemberList == Functions)
+	{
+		if (mem->GetType() == _T("ctor"))
 			m_chcMemberType->SetSelection(0);
-		else if (mem->GetType() == wxT("dtor"))
+		else
+		if (mem->GetType() == _T("dtor"))
 			m_chcMemberType->SetSelection(1);
-		else {
+		else
+		{
             int i = m_chcMemberType->FindString(mem->GetType());
-            if (i==-1) {
+            if (i==-1)
+            {
                 m_chcMemberType->SetSelection(0);
                 m_txtMemberExtType->SetValue(mem->GetType());
                 m_txtMemberExtType->Enable();
                 m_sxtMemberExtType->Enable();
             }
-            else {
+            else
+            {
                 m_chcMemberType->SetSelection(i);
                 m_txtMemberExtType->Disable();
                 m_sxtMemberExtType->Disable();
@@ -204,13 +219,15 @@ void ClassDialog::LoadMember() {
 
 	m_chkMemberArray->SetValue(mem->IsArray());									// Array
 	m_spcMemberArraySize->SetValue(mem->GetArraySize());
-	if (mem->IsArray()) {
-	m_sxtMemberArraySize->Enable();
-	m_spcMemberArraySize->Enable();
+	if (mem->IsArray())
+		{
+		m_sxtMemberArraySize->Enable();
+		m_spcMemberArraySize->Enable();
 	}
-	else {
-	m_sxtMemberArraySize->Disable();
-	m_spcMemberArraySize->Disable();
+	else
+	{
+		m_sxtMemberArraySize->Disable();
+		m_spcMemberArraySize->Disable();
 	}
 
 	m_chkMemberStatic->SetValue(mem->IsStatic());								// Static
@@ -220,19 +237,22 @@ void ClassDialog::LoadMember() {
 	m_chkMemberReference->Disable();
 	m_spcMemberPointerDpth->Disable();
 	m_sxtMemberPointerDpth->Disable();
-	if (mem->IsPointer()) {
+	if (mem->IsPointer())
+	{
 		m_chkMemberPointer->Enable();
 		m_spcMemberPointerDpth->Enable();
 		m_sxtMemberPointerDpth->Enable();
 	}
-	if (mem->IsReference()) {
+	if (mem->IsReference())
+	{
 		m_chkMemberReference->Enable();
 	}
 	m_chkMemberPointer->SetValue(mem->IsPointer());								// Pointer
 	m_spcMemberPointerDpth->SetValue(mem->GetPointerDepth());					// Pointer Depth
 	m_chkMemberReference->SetValue(mem->IsReference());							// Reference
 	// Variable specifics
-	if (m_SelectedMemberList == Variables){
+	if (m_SelectedMemberList == Variables)
+	{
 		// Casting
 		MemberVar* memv = static_cast<MemberVar*>(mem);
 
@@ -266,7 +286,7 @@ void ClassDialog::LoadMember() {
 		m_lstParams->Clear();
 		m_lstParams->SetSelection(-1);
 		m_chkParamsPointer->SetValue(false);
-		m_spcParamsPointerDpth->SetValue(wxT(""));
+		m_spcParamsPointerDpth->SetValue(_T(""));
 		m_chkParamsReference->SetValue(false);
 		m_txtParamsName->Clear();
 		m_chcParamsType->SetSelection(-1);
@@ -276,7 +296,8 @@ void ClassDialog::LoadMember() {
 		m_chkParamsConst->SetValue(false);
 	}
 	// Function specifics
-	else{
+	else
+	{
 		// Casting
 		MemberFunc* memf = static_cast<MemberFunc*>(mem);
 
@@ -328,11 +349,13 @@ void ClassDialog::LoadMember() {
 		m_chkParamsStatic->SetValue(false);						// Static
 		m_chkParamsConst->SetValue(false);						// Const
 		m_chkParamsPointer->SetValue(false);					// Pointer
-		m_spcParamsPointerDpth->SetValue(wxT(""));				// Pointer Depth
+		m_spcParamsPointerDpth->SetValue(_T(""));				// Pointer Depth
 		m_chkParamsReference->SetValue(false);					// Reference
 	}
 }
-void ClassDialog::SaveMember() {
+
+void ClassDialog::SaveMember()
+{
 	// Check if there's even anything chosen
 	if (m_SelectedMemberItem == -1)
 		return; // In that case, don't do anything
@@ -352,15 +375,16 @@ void ClassDialog::SaveMember() {
 		if (!(m_txtMemberExtType->IsEmpty()))
 			mem->SetType(m_txtMemberExtType->GetValue()); // use it then
 		else // If not, default to int
-			mem->SetType(wxT("int"));
+			mem->SetType(_T("int"));
 	else // So if were not at the last selection
-		if (m_SelectedMemberList == Functions) { // Check if we're a function
+		if (m_SelectedMemberList == Functions)
+		{ // Check if we're a function
 			// Constructor is first, 0
 			if (m_chcMemberType->GetSelection() == 0)
-				mem->SetType(wxT("ctor"));
+				mem->SetType(_T("ctor"));
 			// Then the destructor, 1
-			else if (m_chcMemberType->GetString(m_chcMemberType->GetSelection()) == wxT("Destructor"))
-				mem->SetType(wxT("dtor"));
+			else if (m_chcMemberType->GetString(m_chcMemberType->GetSelection()) == _T("Destructor"))
+				mem->SetType(_T("dtor"));
 			else
 				mem->SetType(m_chcMemberType->GetString(m_chcMemberType->GetSelection()));
 		}
@@ -370,9 +394,12 @@ void ClassDialog::SaveMember() {
 			mem->SetType(m_chcMemberType->GetString(m_chcMemberType->GetSelection()));
 
 	switch (m_chcMemberAccess->GetSelection()) {				// Access
-	case 0: mem->SetAccessLevel(Public); break;
-	case 1: mem->SetAccessLevel(Protected); break;
-	case 2: mem->SetAccessLevel(Private); break;
+		case 0: mem->SetAccessLevel(Public);
+			break;
+		case 1: mem->SetAccessLevel(Protected);
+			break;
+		case 2: mem->SetAccessLevel(Private);
+			break;
 	}
 	mem->IsArray(m_chkMemberArray->GetValue());					// Array
 	mem->SetArraySize(m_spcMemberArraySize->GetValue());		// Array Size
@@ -383,12 +410,14 @@ void ClassDialog::SaveMember() {
 	mem->IsReference(m_chkMemberReference->GetValue());			// Reference
 
 	// Variable specifics
-	if (m_SelectedMemberList == Variables){
+	if (m_SelectedMemberList == Variables)
+	{
 		// Casting
 		MemberVar* memv = static_cast<MemberVar*>(mem);
 	}
 	// Function specifics
-	else{
+	else
+	{
 		// Casting
 		MemberFunc* memf = static_cast<MemberFunc*>(mem);
 
@@ -406,7 +435,8 @@ void ClassDialog::SaveMember() {
 		m_lstFuncs->SetString(m_SelectedMemberItem, mem->GetUmlString());
 }
 
-void ClassDialog::LoadParameter() {
+void ClassDialog::LoadParameter()
+{
 	// Check if there's even anything chosen
 	if (m_SelectedParamItem == -1)
 		return; // In that case, don't do anything
@@ -429,10 +459,12 @@ void ClassDialog::LoadParameter() {
 	m_chkParamsReference->Enable();
 	m_spcParamsPointerDpth->Enable();
 	m_sxtParamsPointerDpth->Enable();
-	if (param->IsPointer()) {
+	if (param->IsPointer())
+	{
 		m_chkParamsReference->Disable();
 	}
-	if (param->IsReference()) {
+	if (param->IsReference())
+	{
 		m_chkParamsPointer->Disable();
 		m_spcParamsPointerDpth->Disable();
 		m_sxtParamsPointerDpth->Disable();
@@ -441,7 +473,9 @@ void ClassDialog::LoadParameter() {
 	m_spcParamsPointerDpth->SetValue(param->GetPointerDepth());	// Pointer Depth
 	m_chkParamsReference->SetValue(param->IsReference());		// Reference
 }
-void ClassDialog::SaveParameter() {
+
+void ClassDialog::SaveParameter()
+{
 	// Check if there's even anything chosen
 	if (m_SelectedParamItem == -1)
 		return; // In that case, don't do anything
@@ -463,47 +497,59 @@ void ClassDialog::SaveParameter() {
 	param->IsReference(m_chkParamsReference->GetValue());		// Reference
 }
 
-void ClassDialog::CreateMember(MemberGroup l) {
-	if (l == Variables)	{	// Variables
+void ClassDialog::CreateMember(MemberGroup l)
+{
+	if (l == Variables)
+	{	// Variables
 		MemberVar m;
 
 		m_Variables.push_back(m);
 		m_lstVars->Append(m.GetUmlString());
 	}
-	else {					// Functions
+	else
+	{					// Functions
 		MemberFunc m;
 
 		m_Functions.push_back(m);
 		m_lstFuncs->Append(m.GetUmlString());
 	}
 }
-void ClassDialog::DeleteMember(MemberGroup l, int i) {
-	if (l == Variables)	{	// Variables
+
+void ClassDialog::DeleteMember(MemberGroup l, int i)
+{
+	if (l == Variables)
+	{	// Variables
 		m_Variables.erase(m_Variables.begin()+i);
 		m_lstVars->Delete(i);
 	}
-	else {					// Functions
+	else
+	{					// Functions
 		m_Functions.erase(m_Functions.begin()+i);
 		m_lstFuncs->Delete(i);
 	}
 }
-void ClassDialog::CreateParameter() {
-MemberVar m(wxT("NewParam"));
 
-m_Functions[m_SelectedMemberItem].AddParameter(m); // Creating the data
-wxString ms = m.GetUmlString();
-m_lstParams->Append(ms.erase(0, 1)); // Creating the entry
+void ClassDialog::CreateParameter()
+{
+	MemberVar m(_T("NewParam"));
+
+	m_Functions[m_SelectedMemberItem].AddParameter(m); // Creating the data
+	wxString ms = m.GetUmlString();
+	m_lstParams->Append(ms.erase(0, 1)); // Creating the entry
 }
-void ClassDialog::DeleteParameter(int i) {
-m_Functions[m_SelectedMemberItem].DeleteParameter(i); // Deleting the data
-m_lstParams->Delete(i); // Deleting the entry
+
+void ClassDialog::DeleteParameter(int i)
+{
+	m_Functions[m_SelectedMemberItem].DeleteParameter(i); // Deleting the data
+	m_lstParams->Delete(i); // Deleting the entry
 }
 
 //-------------------------------------------------
 // ***Events***
 //-------------------------------------------------
 
-void ClassDialog::OnVarsListBox(wxCommandEvent& event) {
+void ClassDialog::OnVarsListBox(wxCommandEvent& event)
+{
 	// Deselect FunctionList
 	if (m_lstFuncs->GetSelection() != -1)
 		m_lstFuncs->Deselect(m_lstFuncs->GetSelection());
@@ -512,7 +558,9 @@ void ClassDialog::OnVarsListBox(wxCommandEvent& event) {
 	SelectMember(Variables, m_lstVars->GetSelection());
 	LoadMember();
 }
-void ClassDialog::OnFuncsListBox(wxCommandEvent& event) {
+
+void ClassDialog::OnFuncsListBox(wxCommandEvent& event)
+{
 	// Deselect VarList
 	if (m_lstVars->GetSelection() != -1)
 		m_lstVars->Deselect(m_lstVars->GetSelection());
@@ -521,30 +569,39 @@ void ClassDialog::OnFuncsListBox(wxCommandEvent& event) {
 	SelectMember(Functions, m_lstFuncs->GetSelection());
 	LoadMember();
 }
-void ClassDialog::OnInheritListBox(wxCommandEvent& event) {
+
+void ClassDialog::OnInheritListBox(wxCommandEvent& event)
+{
 	int i = m_chcInheritClass->FindString(m_lstInherit->GetString(m_lstInherit->GetSelection()));
-	if (i == -1) {
+	if (i == -1)
+	{
 		m_chcInheritClass->SetSelection(0);
 		m_txtInheritExtClass->SetValue(m_lstInherit->GetString(m_lstInherit->GetSelection()));
 		m_txtInheritExtClass->Enable();
 		m_sxtInheritExtClass->Enable();
 	}
-	else {
+	else
+	{
 		m_chcInheritClass->SetSelection(i);
 		m_txtInheritExtClass->Disable();
 		m_sxtInheritExtClass->Disable();
 	}
 }
-void ClassDialog::OnParamsListBox(wxCommandEvent& event) {
+
+void ClassDialog::OnParamsListBox(wxCommandEvent& event)
+{
 	SaveParameter();
 	SelectParameter(m_lstParams->GetSelection());
 	LoadParameter();
 }
 
-void ClassDialog::OnInheritAddBtn(wxCommandEvent& event){
-	if (m_chcInheritClass->GetSelection() == 0) {
-		if (m_txtInheritExtClass->GetValue().IsEmpty()){
-			wxMessageBox(wxT("Please specify the external class name"),wxT("Error"),wxOK|wxCENTER|wxICON_ERROR, this);
+void ClassDialog::OnInheritAddBtn(wxCommandEvent& event)
+{
+	if (m_chcInheritClass->GetSelection() == 0)
+	{
+		if (m_txtInheritExtClass->GetValue().IsEmpty())
+		{
+			wxMessageBox(_T("Please specify the external class name"),_T("Error"),wxOK|wxCENTER|wxICON_ERROR, this);
 			return;
 		}
 		m_lstInherit->Append(m_txtInheritExtClass->GetValue());
@@ -555,34 +612,42 @@ void ClassDialog::OnInheritAddBtn(wxCommandEvent& event){
 	m_chcInheritClass->SetSelection(-1);
 	m_sxtInheritExtClass->Disable();
 	m_txtInheritExtClass->Disable();
-	m_txtInheritExtClass->SetValue(wxT(""));
+	m_txtInheritExtClass->SetValue(_T(""));
 }
-void ClassDialog::OnInheritDelBtn(wxCommandEvent& event){
+
+void ClassDialog::OnInheritDelBtn(wxCommandEvent& event)
+{
 	if (m_lstInherit->GetSelection() != -1)
 		m_lstInherit->Delete(m_lstInherit->GetSelection());
 
-	if (event.GetSelection() >= m_lstInherit->GetCount()) {
+	if (event.GetSelection() >= m_lstInherit->GetCount())
+	{
 		m_lstInherit->SetSelection(event.GetSelection()-1);
 	}
 	m_lstInherit->SetSelection(event.GetSelection());
 }
 
-void ClassDialog::OnVarsNewBtn(wxCommandEvent& event){
+void ClassDialog::OnVarsNewBtn(wxCommandEvent& event)
+{
 	CreateMember(Variables);
 }
-void ClassDialog::OnVarsDelBtn(wxCommandEvent& event){
-	if (m_SelectedMemberItem != -1) {
+void ClassDialog::OnVarsDelBtn(wxCommandEvent& event)
+{
+	if (m_SelectedMemberItem != -1)
+	{
 		DeleteMember(Variables, m_SelectedMemberItem);
 
 		//if (m_SelectedMemberItem > m_lstVars->GetCount()-1)
-		if (m_SelectedMemberItem >= m_lstVars->GetCount()) {
+		if (m_SelectedMemberItem >= m_lstVars->GetCount())
+		{
 			m_SelectedMemberItem--;
 		}
 		m_lstVars->SetSelection(m_SelectedMemberItem);
 		LoadMember();
 	}
 }
-void ClassDialog::OnVarsUpBtn(wxCommandEvent& event){
+void ClassDialog::OnVarsUpBtn(wxCommandEvent& event)
+{
 	if (m_SelectedMemberItem <= 0 || m_SelectedMemberList == Functions)
 		return;
 	m_Variables.insert(m_Variables.begin()+m_SelectedMemberItem-1, m_Variables[m_SelectedMemberItem]);
@@ -592,15 +657,18 @@ void ClassDialog::OnVarsUpBtn(wxCommandEvent& event){
 	m_lstVars->Delete(m_SelectedMemberItem+1);
 	m_lstVars->SetSelection(--m_SelectedMemberItem);
 }
+
 void ClassDialog::OnVarsDownBtn(wxCommandEvent& event){
 	if (m_SelectedMemberItem >= m_Variables.size()-1 || m_SelectedMemberList == Functions)
 		return;
 
-	if (m_SelectedMemberItem == m_Variables.size()-2){
+	if (m_SelectedMemberItem == m_Variables.size()-2)
+	{
 		m_Variables.push_back(m_Variables[m_SelectedMemberItem]);
 		m_lstVars->Append(m_lstVars->GetString(m_SelectedMemberItem));
 	}
-	else {
+	else
+	{
 		m_Variables.insert(m_Variables.begin()+m_SelectedMemberItem+2, m_Variables[m_SelectedMemberItem]);
 		m_lstVars->Insert(m_lstVars->GetString(m_SelectedMemberItem), m_SelectedMemberItem+2);
 	}
@@ -609,22 +677,29 @@ void ClassDialog::OnVarsDownBtn(wxCommandEvent& event){
 	m_lstVars->SetSelection(++m_SelectedMemberItem);
 }
 
-void ClassDialog::OnFuncsNewBtn(wxCommandEvent& event){
+void ClassDialog::OnFuncsNewBtn(wxCommandEvent& event)
+{
 	CreateMember(Functions);
 }
-void ClassDialog::OnFuncsDelBtn(wxCommandEvent& event){
-	if (m_SelectedMemberItem != -1) {
+
+void ClassDialog::OnFuncsDelBtn(wxCommandEvent& event)
+{
+	if (m_SelectedMemberItem != -1)
+	{
 		DeleteMember(Functions, m_SelectedMemberItem);
 
 		//if (m_SelectedMemberItem > m_lstFuncs->GetCount()-1)
-		if (m_SelectedMemberItem >= m_lstFuncs->GetCount()) {
+		if (m_SelectedMemberItem >= m_lstFuncs->GetCount())
+		{
 			m_SelectedMemberItem--;
 		}
 		m_lstFuncs->SetSelection(m_SelectedMemberItem);
 		LoadMember();
 	}
 }
-void ClassDialog::OnFuncsUpBtn(wxCommandEvent& event){
+
+void ClassDialog::OnFuncsUpBtn(wxCommandEvent& event)
+{
 	if (m_SelectedMemberItem <= 0 || m_SelectedMemberList == Variables)
 		return;
 	m_Functions.insert(m_Functions.begin()+m_SelectedMemberItem-1, m_Functions[m_SelectedMemberItem]);
@@ -634,15 +709,19 @@ void ClassDialog::OnFuncsUpBtn(wxCommandEvent& event){
 	m_lstFuncs->Delete(m_SelectedMemberItem+1);
 	m_lstFuncs->SetSelection(--m_SelectedMemberItem);
 }
-void ClassDialog::OnFuncsDownBtn(wxCommandEvent& event){
+
+void ClassDialog::OnFuncsDownBtn(wxCommandEvent& event)
+{
 	if (m_SelectedMemberItem >= m_Functions.size()-1 || m_SelectedMemberList == Variables)
 		return;
 
-	if (m_SelectedMemberItem == m_Functions.size()-2){
+	if (m_SelectedMemberItem == m_Functions.size()-2)
+	{
 		m_Functions.push_back(m_Functions[m_SelectedMemberItem]);
 		m_lstFuncs->Append(m_lstFuncs->GetString(m_SelectedMemberItem));
 	}
-	else {
+	else
+	{
 		m_Functions.insert(m_Functions.begin()+m_SelectedMemberItem+2, m_Functions[m_SelectedMemberItem]);
 		m_lstFuncs->Insert(m_lstFuncs->GetString(m_SelectedMemberItem), m_SelectedMemberItem+2);
 	}
@@ -651,27 +730,34 @@ void ClassDialog::OnFuncsDownBtn(wxCommandEvent& event){
 	m_lstFuncs->SetSelection(++m_SelectedMemberItem);
 }
 
-void ClassDialog::OnParamsNewBtn(wxCommandEvent& event){
+void ClassDialog::OnParamsNewBtn(wxCommandEvent& event)
+{
 	if (m_SelectedMemberList != Functions)
 		return;
 
 	CreateParameter();
 }
-void ClassDialog::OnParamsDelBtn(wxCommandEvent& event){
+
+void ClassDialog::OnParamsDelBtn(wxCommandEvent& event)
+{
 	if (m_SelectedMemberList != Functions)
 		return;
 
-	if (m_SelectedParamItem != -1) {
+	if (m_SelectedParamItem != -1)
+	{
 		DeleteParameter(m_SelectedParamItem);
 
 		//if (m_SelectedParamItem > m_lstParams.GetCount()-1)
-		if (m_SelectedParamItem >= m_lstParams->GetCount()) {
+		if (m_SelectedParamItem >= m_lstParams->GetCount())
+		{
 			m_SelectedParamItem--;
 		}
 		m_lstParams->SetSelection(m_SelectedParamItem);
 	}
 }
-void ClassDialog::OnParamsUpBtn(wxCommandEvent& event){
+
+void ClassDialog::OnParamsUpBtn(wxCommandEvent& event)
+{
 	if (m_SelectedMemberList != Functions)
 		return;
 
@@ -686,7 +772,9 @@ void ClassDialog::OnParamsUpBtn(wxCommandEvent& event){
 	m_lstParams->Delete(m_SelectedParamItem+1);
 	m_lstParams->SetSelection(--m_SelectedParamItem);
 }
-void ClassDialog::OnParamsDownBtn(wxCommandEvent& event){
+
+void ClassDialog::OnParamsDownBtn(wxCommandEvent& event)
+{
 	if (m_SelectedMemberList != Functions)
 		return;
 
@@ -695,11 +783,13 @@ void ClassDialog::OnParamsDownBtn(wxCommandEvent& event){
 	if (m_SelectedParamItem >= Params.size()-1)
 		return;
 
-	if (m_SelectedParamItem == Params.size()-2){
+	if (m_SelectedParamItem == Params.size()-2)
+	{
 		Params.push_back(Params[m_SelectedParamItem]);
 		m_lstParams->Append(m_lstParams->GetString(m_SelectedParamItem));
 	}
-	else {
+	else
+	{
 		Params.insert(Params.begin()+m_SelectedParamItem+2, Params[m_SelectedParamItem]);
 		m_lstParams->Insert(m_lstParams->GetString(m_SelectedParamItem), m_SelectedParamItem+2);
 	}
@@ -708,112 +798,151 @@ void ClassDialog::OnParamsDownBtn(wxCommandEvent& event){
 	m_lstParams->SetSelection(++m_SelectedParamItem);
 }
 
-void ClassDialog::OnInheritChoice(wxCommandEvent& event){
-	if (event.GetSelection() == 0){
+void ClassDialog::OnInheritChoice(wxCommandEvent& event)
+{
+	if (event.GetSelection() == 0)
+	{
 		m_sxtInheritExtClass->Enable();
 		m_txtInheritExtClass->Enable();
 	}
-	else{
+	else
+	{
 		m_sxtInheritExtClass->Disable();
 		m_txtInheritExtClass->Disable();
 	}
 }
 
-void ClassDialog::OnMemberTypeChoice(wxCommandEvent& event) {
-    if (m_chcMemberType->GetSelection() == 2 && m_SelectedMemberList != Functions) {
+void ClassDialog::OnMemberTypeChoice(wxCommandEvent& event)
+{
+    if (m_chcMemberType->GetSelection() == 2 && m_SelectedMemberList != Functions)
+	{
         m_txtMemberExtType->Enable();
         m_sxtMemberExtType->Enable();
     }
-    else if (m_chcMemberType->GetSelection() == 0) {
+    else
+    if (m_chcMemberType->GetSelection() == 0)
+    {
         m_txtMemberExtType->Enable();
         m_sxtMemberExtType->Enable();
     }
-    else {
-        m_txtMemberExtType->Disable();
-        m_sxtMemberExtType->Disable();
-    }
-}
-void ClassDialog::OnMemberAccessChoice(wxCommandEvent& event) {}
-void ClassDialog::OnParamsTypeChoice(wxCommandEvent& event) {
-    if (m_chcMemberType->GetSelection() == 0) {
-        m_txtMemberExtType->Enable();
-        m_sxtMemberExtType->Enable();
-    }
-    else {
+    else
+    {
         m_txtMemberExtType->Disable();
         m_sxtMemberExtType->Disable();
     }
 }
 
-void ClassDialog::OnMemberPointerCheck(wxCommandEvent& event) {
-    if (m_chkMemberPointer->GetValue()) {
+void ClassDialog::OnMemberAccessChoice(wxCommandEvent& event)
+{
+}
+
+void ClassDialog::OnParamsTypeChoice(wxCommandEvent& event)
+{
+    if (m_chcMemberType->GetSelection() == 0)
+	{
+        m_txtMemberExtType->Enable();
+        m_sxtMemberExtType->Enable();
+    }
+    else
+    {
+        m_txtMemberExtType->Disable();
+        m_sxtMemberExtType->Disable();
+    }
+}
+
+void ClassDialog::OnMemberPointerCheck(wxCommandEvent& event)
+{
+    if (m_chkMemberPointer->GetValue())
+	{
         m_spcMemberPointerDpth->Enable();
         m_sxtMemberPointerDpth->Enable();
         m_chkMemberReference->Disable();
     }
-    else {
+    else
+    {
         m_spcMemberPointerDpth->Disable();
         m_sxtMemberPointerDpth->Disable();
         m_chkMemberReference->Enable();
     }
 }
-void ClassDialog::OnMemberRefCheck(wxCommandEvent& event) {
-    if (m_chkMemberReference->GetValue()) {
+
+void ClassDialog::OnMemberRefCheck(wxCommandEvent& event)
+{
+    if (m_chkMemberReference->GetValue())
+	{
         m_chkMemberPointer->Disable();
     }
-    else {
+    else
+    {
         m_chkMemberPointer->Enable();
     }
 }
-void ClassDialog::OnMemberArrayCheck(wxCommandEvent& event) {
-	if (m_chkMemberArray->GetValue()) {
+void ClassDialog::OnMemberArrayCheck(wxCommandEvent& event)
+{
+	if (m_chkMemberArray->GetValue())
+	{
 		m_spcMemberArraySize->Enable();
 		m_sxtMemberArraySize->Enable();
 	}
-	else {
+	else
+	{
 		m_spcMemberArraySize->Disable();
 		m_sxtMemberArraySize->Disable();
 	}
 }
-void ClassDialog::OnParamsPointerCheck(wxCommandEvent& event) {
-    if (m_chkParamsPointer->GetValue()) {
+
+void ClassDialog::OnParamsPointerCheck(wxCommandEvent& event)
+{
+    if (m_chkParamsPointer->GetValue())
+	{
 		m_spcParamsPointerDpth->Enable();
 		m_sxtParamsPointerDpth->Enable();
 		m_chkParamsReference->Disable();
     }
-    else {
+    else
+    {
         m_spcParamsPointerDpth->Disable();
         m_sxtParamsPointerDpth->Disable();
         m_chkParamsReference->Enable();
     }
 }
-void ClassDialog::OnParamsRefCheck(wxCommandEvent& event) {
-    if (m_chkParamsReference->GetValue()) {
+
+void ClassDialog::OnParamsRefCheck(wxCommandEvent& event)
+{
+    if (m_chkParamsReference->GetValue())
+	{
         m_chkParamsPointer->Disable();
     }
-    else {
+    else
+    {
         m_chkParamsPointer->Enable();
     }
 }
-void ClassDialog::OnMemberVirtualCheck(wxCommandEvent& event) {
+
+void ClassDialog::OnMemberVirtualCheck(wxCommandEvent& event)
+{
     if (m_chkMemberVirtual->GetValue())
         m_chkMemberPVirtual->Enable();
     else
         m_chkMemberPVirtual->Disable();
 }
 
-
-void ClassDialog::OnCreateBtn(wxCommandEvent& event) {
-	if (m_txtClassName->GetValue().empty()) {
-		wxMessageBox(wxT("Please specify class name"),wxT("Error"),wxOK|wxCENTER|wxICON_ERROR, this);
+void ClassDialog::OnCreateBtn(wxCommandEvent& event)
+{
+	if (m_txtClassName->GetValue().empty())
+	{
+		wxMessageBox(_("Please specify class name"), _("Error"),wxOK|wxCENTER|wxICON_ERROR, this);
 		return;
 	}
 	EndModal(wxID_OK);
 }
-void ClassDialog::OnCancelBtn(wxCommandEvent& event) {
+
+void ClassDialog::OnCancelBtn(wxCommandEvent& event)
+{
 	EndModal(wxID_CANCEL);
 }
 
-void ClassDialog::OnClose(wxCloseEvent& event){
+void ClassDialog::OnClose(wxCloseEvent& event)
+{
 	EndModal(wxID_CLOSE);
 }
