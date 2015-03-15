@@ -151,7 +151,10 @@ void UmlBlocks::NewUmlMenuOptionFunc(wxCommandEvent& event) {
         {
             wxArrayInt targets;
             prjMan->AddFileToProject(FileName, prj, targets);
-            prjMan->RebuildTree();
+            /// LETARTARE   svn > 9830
+            prjMan->GetUI().RebuildTree();
+            /// svn <= 9830
+            //  prjMan->RebuildTree();
         }
     //}
 }
