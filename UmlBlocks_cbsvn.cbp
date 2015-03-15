@@ -5,6 +5,11 @@
 		<Option title="UmlBlocks-0.2 CB SVN" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option show_notes="0">
+			<notes>
+				<![CDATA[CB SVN Version may need to be 10127; since that is the version used by the source code editor (LETARTARE). I am testing with a later SVN version.]]>
+			</notes>
+		</Option>
 		<Build>
 			<Target title="default">
 				<Option output="UmlBlocks" prefix_auto="1" extension_auto="1" />
