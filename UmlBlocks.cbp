@@ -2,11 +2,17 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="UmlBlocks" />
+		<Option title="UmlBlocks-0.2" />
 		<Option pch_mode="2" />
-		<Option compiler="gnu_gcc_compiler_w_sjlj_unwindings" />
+		<Option compiler="gcc" />
+		<Option show_notes="0">
+			<notes>
+				<![CDATA[adjust value
+CB = $(#cbxxxx)]]>
+			</notes>
+		</Option>
 		<Build>
-			<Target title="default">
+			<Target title="release">
 				<Option output="UmlBlocks" prefix_auto="1" extension_auto="1" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -27,52 +33,141 @@
 					<Add option="-DCB_PRECOMP" />
 					<Add option="-DWX_PRECOMP" />
 					<Add option="-DwxUSE_UNICODE" />
-					<Add directory="$(#cb)/include" />
-					<Add directory="$(#cb)/sdk/wxscintilla/include" />
+					<Add directory="$CB/include" />
+					<Add directory="$CB/sdk/wxscintilla/include" />
+					<Add directory="$CB/devel/share/CodeBlocks/plugins/" />
 					<Add directory="$(#wx.include)" />
 					<Add directory="$(#wx.lib)/gcc_dll/mswu" />
-					<Add directory="$(#wxsf)/include" />
+					<Add directory="$(#wxSF1)/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-mthreads" />
 					<Add library="codeblocks" />
 					<Add library="wxmsw28u_wxsf" />
 					<Add library="wxmsw28u" />
-					<Add directory="$(#cb)/devel" />
+					<Add directory="$CB/devel" />
+					<Add directory="$CB/devel/share/CodeBlocks/plugins/" />
 					<Add directory="$(#wx.lib)/gcc_dll" />
-					<Add directory="$(#wxsf)/lib/gcc_dll" />
+					<Add directory="$(#wxSF1)/lib/gcc_dll" />
+					<Add directory="$(#wxSF1)/lib/gcc_lib" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="zip -j9 UmlBlocks.zip manifest.xml *.xrc" />
+					<Add after="zip -j9 UmlBlocks.zip manifest.xml forms\*.xrc" />
 					<Add after="zip -j9 UmlBlocks.cbplugin UmlBlocks.dll UmlBlocks.zip" />
 					<Mode after="always" />
 				</ExtraCommands>
+				<Environment>
+					<Variable name="CB" value="$(#cb10127)" />
+				</Environment>
+			</Target>
+			<Target title="infos">
+				<Option type="4" />
+				<Option compiler="gcc" />
 			</Target>
 		</Build>
-		<Unit filename="Class.cpp" />
-		<Unit filename="Class.hpp" />
-		<Unit filename="ClassDialog.cpp" />
-		<Unit filename="ClassDialog.hpp" />
-		<Unit filename="ClassDialog.xrc" />
-		<Unit filename="Member.cpp" />
-		<Unit filename="Member.hpp" />
-		<Unit filename="MemberFunc.cpp" />
-		<Unit filename="MemberFunc.hpp" />
-		<Unit filename="MemberVar.cpp" />
-		<Unit filename="MemberVar.hpp" />
-		<Unit filename="NewEntityDialog.cpp" />
-		<Unit filename="NewEntityDialog.hpp" />
-		<Unit filename="QuickEditPopup.cpp" />
-		<Unit filename="QuickEditPopup.hpp" />
-		<Unit filename="UmlBlocks.cpp" />
-		<Unit filename="UmlBlocks.hpp" />
-		<Unit filename="UmlCanvas.cpp" />
-		<Unit filename="UmlCanvas.hpp" />
-		<Unit filename="UmlEditor.cpp" />
-		<Unit filename="UmlEditor.hpp" />
-		<Unit filename="Utilities.cpp" />
-		<Unit filename="Utilities.hpp" />
-		<Unit filename="manifest.xml" />
+		<Compiler>
+			<Add option="-g" />
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-fmessage-length=0" />
+			<Add option="-fexceptions" />
+			<Add option="-Winvalid-pch" />
+			<Add option="-DBUILDING_PLUGIN" />
+			<Add option="-DHAVE_W32API_H" />
+			<Add option="-D__WXMSW__" />
+			<Add option="-DWXUSINGDLL" />
+			<Add option="-DcbDEBUG" />
+			<Add option="-DCB_PRECOMP" />
+			<Add option="-DWX_PRECOMP" />
+			<Add option="-DwxUSE_UNICODE" />
+			<Add directory="src" />
+		</Compiler>
+		<Linker>
+			<Add option="-mthreads" />
+			<Add library="codeblocks" />
+			<Add library="wxmsw28u_wxsf" />
+			<Add library="wxmsw28u" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="zip -j9 UmlBlocks.zip manifest.xml *.xrc" />
+			<Add after="zip -j9 UmlBlocks.cbplugin UmlBlocks.dll UmlBlocks.zip" />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="ClassDialog.xrc">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="infos/umlBlocks.his">
+			<Option target="infos" />
+		</Unit>
+		<Unit filename="manifest.xml">
+			<Option target="infos" />
+		</Unit>
+		<Unit filename="src/Class.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/Class.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/ClassDialog.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/ClassDialog.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/Member.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/Member.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/MemberFunc.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/MemberFunc.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/MemberVar.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/MemberVar.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/NewEntityDialog.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/NewEntityDialog.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/QuickEditPopup.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/QuickEditPopup.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/UmlBlocks.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/UmlBlocks.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/UmlCanvas.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/UmlCanvas.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/UmlEditor.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/UmlEditor.hpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/Utilities.cpp">
+			<Option target="release" />
+		</Unit>
+		<Unit filename="src/Utilities.hpp">
+			<Option target="release" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />
@@ -81,6 +176,7 @@
 					<load_resource file="ClassDialog.xrc" />
 				</gui>
 			</wxsmith>
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

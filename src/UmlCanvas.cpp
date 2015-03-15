@@ -6,7 +6,10 @@ BEGIN_EVENT_TABLE(UmlCanvas, wxSFShapeCanvas)
 END_EVENT_TABLE()
 
 UmlCanvas::UmlCanvas(wxSFDiagramManager* manager, UmlEditor* editor)
-	: wxSFShapeCanvas(manager, editor, wxID_ANY, wxDefaultPosition, editor->GetSize(), wxHSCROLL | wxVSCROLL | wxSTATIC_BORDER) {
+	: wxSFShapeCanvas(manager, editor, wxID_ANY, wxDefaultPosition, editor->GetSize(), wxHSCROLL | wxVSCROLL | wxSTATIC_BORDER)
+// LETARTARE
+	 ,EditDiag (0), m_Editor(editor)
+{
 	editor->SetCanvas(this);
 	//AddStyle(sfsGRID_USE);
 	//AddStyle(sfsGRID_SHOW);
@@ -16,21 +19,23 @@ UmlCanvas::UmlCanvas(wxSFDiagramManager* manager, UmlEditor* editor)
 	SetGradientFrom(sfdvSHAPECANVAS_GRADIENT_FROM);
 	SetGradientTo(sfdvSHAPECANVAS_GRADIENT_TO);
 	GetDiagramManager()->ClearAcceptedShapes();
-	GetDiagramManager()->AcceptShape(wxT("All"));
-
-	m_Editor = editor;
+	GetDiagramManager()->AcceptShape(_T("All"));
 }
 
-UmlCanvas::~UmlCanvas() {
+UmlCanvas::~UmlCanvas()
+{
 }
 
-void UmlCanvas::OnRightDown(wxMouseEvent& event) {
+void UmlCanvas::OnRightDown(wxMouseEvent& event)
+{
 }
 
-void UmlCanvas::OnMouseWheel(wxMouseEvent& event) {
+void UmlCanvas::OnMouseWheel(wxMouseEvent& event)
+{
 }
 
-void UmlCanvas::OnLeftDown(wxMouseEvent& event) {
+void UmlCanvas::OnLeftDown(wxMouseEvent& event)
+{
 	wxSFShapeCanvas::OnLeftDown(event);
 	HideAllHandles();
 	if(EditDiag != 0)
@@ -40,7 +45,8 @@ void UmlCanvas::OnLeftDown(wxMouseEvent& event) {
     }
 }
 
-void UmlCanvas::OnLeftDoubleClick(wxMouseEvent& event) {
+void UmlCanvas::OnLeftDoubleClick(wxMouseEvent& event)
+{
     //wxSFShapeCanvas::OnLeftDoubleClick(event);
     //Member* ClickedMember = static_cast<Class*>(GetShapeAtPosition(event.GetPosition()))->GetMemberAtPosition(event.GetPosition());
     Class* ClickedClass = static_cast<Class*>(GetShapeAtPosition(event.GetPosition()));
@@ -55,14 +61,17 @@ void UmlCanvas::OnLeftDoubleClick(wxMouseEvent& event) {
     }
 }
 
-void UmlCanvas::OnLeftUp(wxMouseEvent& event) {
+void UmlCanvas::OnLeftUp(wxMouseEvent& event)
+{
 	wxSFShapeCanvas::OnLeftUp(event);
 	HideAllHandles();
 	GetMultiselectionBox().ShowHandles(false);
 }
 
-void UmlCanvas::OnKeyDown(wxKeyEvent& event){
-    if(event.GetKeyCode() == WXK_DELETE){
+void UmlCanvas::OnKeyDown(wxKeyEvent& event)
+{
+    if(event.GetKeyCode() == WXK_DELETE)
+    {
         ShapeList sl;
         GetSelectedShapes(sl);
         GetDiagramManager()->RemoveShapes(sl);
@@ -74,5 +83,6 @@ void UmlCanvas::OnKeyDown(wxKeyEvent& event){
     }
 }
 
-void UmlCanvas::OnConnectionFinished(wxSFLineShape* connection) {
+void UmlCanvas::OnConnectionFinished(wxSFLineShape* connection)
+{
 }
