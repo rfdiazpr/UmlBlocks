@@ -7,10 +7,10 @@
 		<Option compiler="gcc" />
 		<Option show_notes="0">
 			<notes>
-				<![CDATA[CB SVN Version may need to be 10127; since that is the version used by the source code editor (LETARTARE). I will be testing with a later SVN version in the future.
+				<![CDATA[CB SVN Version may need to be 10127; since that is the version used by the source code editor (LETARTARE). I am testing with a later SVN version.
 
-NOTE: Copy wxSF_Static_WXDLL.cbp to the wxSF version 1.13.0 src folder.
-This project is needed to build the static library that uses the wx2.8 DLL used by the CB core project.]]>
+NOTE: The file wxmsw28u_wxsf.dll needs to be hand copied to the folder holding the codeblocks.exe.
+]]>
 			</notes>
 		</Option>
 		<Build>
@@ -35,7 +35,6 @@ This project is needed to build the static library that uses the wx2.8 DLL used 
 					<Add option="-DCB_PRECOMP" />
 					<Add option="-DWX_PRECOMP" />
 					<Add option="-DwxUSE_UNICODE" />
-					<Add option="-DLIB_USINGDLL" />
 					<Add directory="$(#cb_svn)/.objs/include" />
 					<Add directory="$(#cb_svn.include)" />
 					<Add directory="$(#cb_svn)/sdk/wxscintilla/include" />
@@ -50,7 +49,7 @@ This project is needed to build the static library that uses the wx2.8 DLL used 
 					<Add library="wxmsw28u" />
 					<Add directory="$(#cb_svn)/devel" />
 					<Add directory="$(#wx.lib)/gcc_dll" />
-					<Add directory="$(#wxsf.lib)/gcc_lib_usingdll" />
+					<Add directory="$(#wxsf.lib)/gcc_dll" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="zip -j9 UmlBlocks.zip manifest.xml forms\*.xrc" />
@@ -78,7 +77,6 @@ This project is needed to build the static library that uses the wx2.8 DLL used 
 					<Add option="-DcbDEBUG" />
 					<Add option="-DNOPCH" />
 					<Add option="-DwxUSE_UNICODE" />
-					<Add option="-DLIB_USINGDLL" />
 					<Add directory="$(#cb_svn.include)" />
 					<Add directory="$(#cb_svn)/sdk/wxscintilla/include" />
 					<Add directory="$(#wx.include)" />
@@ -92,7 +90,7 @@ This project is needed to build the static library that uses the wx2.8 DLL used 
 					<Add library="wxmsw28u" />
 					<Add directory="$(#cb_svn)/devel" />
 					<Add directory="$(#wx.lib)/gcc_dll" />
-					<Add directory="$(#wxsf.lib)/gcc_lib_usingdll" />
+					<Add directory="$(#wxsf.lib)/gcc_dll" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="zip -j9 UmlBlocks.zip manifest.xml forms\*.xrc" />
