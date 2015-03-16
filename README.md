@@ -1,4 +1,4 @@
-Sunday 15, 2015 : Adaptation 'Code::Blocks' svn10127 (sdk 1.25.0),  win32
+Sunday 16, 2015 : Adaptation 'Code::Blocks' svn10127 (sdk 1.25.0),  win32
                   wxShapeFramework 1.13
 
 #Uml::Blocks

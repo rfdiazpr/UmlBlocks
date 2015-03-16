@@ -10,20 +10,15 @@ class UmlEditor : public EditorBase {
 public:
 	UmlEditor(wxWindow*, const wxString&);
 	virtual ~UmlEditor();
-	UmlCanvas* GetCanvas() const
-	{
-		return m_pCanvas;
-	}
-	void SetCanvas(UmlCanvas* a)
-	{
-		m_pCanvas = a;
-	}
-	bool IsRealtime()
-	{
-		return m_rRealtime;
-	}
+
+	UmlCanvas* GetCanvas() const ;
+
+	void SetCanvas(UmlCanvas* a) ;
+
+	bool IsRealtime() ;
 
 	void OnSize(wxSizeEvent& event);
+
 protected:
 private:
 	DECLARE_EVENT_TABLE()

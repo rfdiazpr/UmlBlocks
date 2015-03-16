@@ -14,12 +14,8 @@ class MemberFunc : public Member
 				   const wxString& a_type = _T("int"),
 				   Accessibility a_access = Public,
 				   const std::vector<MemberVar>& a_parameters = std::vector<MemberVar>(),
-				   int a_array = 0,
-				   int a_pointer = 0,
-				   bool a_reference = false,
-				   bool a_static = false,
-				   bool a_const = false,
-				   bool a_virtual = false,
+				   int a_array = 0, int a_pointer = 0, bool a_reference = false,
+				   bool a_static = false, bool a_const = false, bool a_virtual = false,
 				   bool a_purevirtual = false);
         //MemberFunc(const MemberFunc&);
         /** Default destructor */
@@ -28,18 +24,18 @@ class MemberFunc : public Member
         //void UpdateParameters(const std::vector<MemberVar>& newparams) {}
         //const wxString& GetUmlString();
 
-        bool IsVirtual() const {return m_Virtual;}
-        bool IsPureVirtual() const {return m_PureVirtual;}
+        bool IsVirtual() const ;
+        bool IsPureVirtual() const ;
 
-        MemberVar& GetParameter(int a) {return m_Parameters[a];}
+        MemberVar& GetParameter(int a) ;
         MemberVar& AddParameter(const MemberVar&, int pos = 0);
         void DeleteParameter(unsigned int i);
-        unsigned int GetParameterCount() {return m_Parameters.size();}
+        unsigned int GetParameterCount() ;
 
-        void IsVirtual(bool a) {m_Virtual = a; UpdateUmlString();}
-        void IsPureVirtual(bool a) {m_PureVirtual = a; UpdateUmlString();}
+        void IsVirtual(bool a) ;
+        void IsPureVirtual(bool a);
 
-		virtual MemberGroup GetMemberGroup() { return Functions; }
+		virtual MemberGroup GetMemberGroup() ;
     protected:
         virtual void CalcUmlString();
     private:

@@ -16,6 +16,9 @@ namespace
 }
 
 int NewUmlMenuOptionId = wxNewId();
+///
+int SettingsUmlId    	= wxNewId();
+//
 int NewClassMenuOptionId = wxNewId();
 int RevEngiMenuOptionId = wxNewId();
 int GenCodeMenuOptionId = wxNewId();
@@ -23,6 +26,9 @@ int SavePngMenuOptionId = wxNewId();
 // events handling
 BEGIN_EVENT_TABLE(UmlBlocks, cbPlugin)
 	EVT_MENU(NewUmlMenuOptionId, UmlBlocks::NewUmlMenuOptionFunc)
+	///
+	EVT_MENU(SettingsUmlId, UmlBlocks::OnMenuSettings)
+	//
 	EVT_MENU(NewClassMenuOptionId, UmlBlocks::NewClassMenuOptionFunc)
 	EVT_MENU(RevEngiMenuOptionId, UmlBlocks::RevEngiMenuOptionFunc)
 	EVT_MENU(GenCodeMenuOptionId, UmlBlocks::GenCodeMenuOptionFunc)
@@ -74,6 +80,10 @@ void UmlBlocks::OnRelease(bool appShutDown)
 
 int UmlBlocks::Configure()
 {
+	if ( !IsAttached() )
+		return -1;
+
+	Manager::Get()->GetLogManager()->Log(_("UmlBlocks::Configure()"));
 	//create and display the configuration dialog for your plugin
 	cbConfigurationDialog dlg(Manager::Get()->GetAppWindow(), wxID_ANY, _("Your dialog title"));
 	cbConfigurationPanel* panel = GetConfigurationPanel(&dlg);
@@ -85,6 +95,17 @@ int UmlBlocks::Configure()
 	}
 
 	return -1;
+}
+/// LETARTARE
+// ----------------------------------------------------------------------------
+cbConfigurationPanel* UmlBlocks::GetConfigurationPanel(wxWindow* parent)
+// ----------------------------------------------------------------------------
+{
+    // Called by plugin manager to show config panel in global Setting Dialog
+	if ( !IsAttached() )
+		return NULL;
+
+	return  0; //new BrowseTrackerConfPanel(*this, parent);
 }
 
 void UmlBlocks::BuildMenu(wxMenuBar* menuBar)
@@ -100,11 +121,15 @@ void UmlBlocks::BuildMenu(wxMenuBar* menuBar)
 	// The whole find the "Class..." entry ID process won't work properly, so now shit's hardcoded instead.
 	NewFileMenu->Insert( 3, NewUmlMenuOptionId, _("Uml Diagram..."), _("Uml Diagram"),false);
 
-	Manager::Get()->GetLogManager()->Log(_T("MENUBAR DEBUG END"));
+	//Manager::Get()->GetLogManager()->Log(_T("MENUBAR DEBUG END"));
 
 	//UML Menu
 	UMLMenu = new wxMenu(_T(""));
 	menuBar->Insert(menuBar->FindMenu(_("Build"))+1, UMLMenu, _T("Uml"));
+	///
+	UMLMenu->Append(SettingsUmlId, _("Settings uml..."), _("Settings uml"));
+	UMLMenu->AppendSeparator();
+	///
 	UMLMenu->Append(NewUmlMenuOptionId, _("New Uml Diagram..."), _("Create a new Uml Diagram"));
 	UMLMenu->AppendSeparator();
 	UMLMenu->Append(NewClassMenuOptionId, _("New Class..."), _("Create a new Class"));
@@ -114,6 +139,7 @@ void UmlBlocks::BuildMenu(wxMenuBar* menuBar)
 	UMLMenu->Append(SavePngMenuOptionId, _("Save Image..."), _("Create and save a PNG Image"));
 
 	SetUmlTools(false);
+
 }
 
 void UmlBlocks::BuildModuleMenu(const ModuleType type, wxMenu* menu, const FileTreeData* data)
@@ -175,6 +201,13 @@ void UmlBlocks::NewUmlMenuOptionFunc(wxCommandEvent& event)
     //}
 }
 
+// ----------------------------------------------------------------------------
+void UmlBlocks::OnMenuSettings( wxCommandEvent& WXUNUSED(event))
+// ----------------------------------------------------------------------------
+{
+    Configure();
+}
+
 void UmlBlocks::NewClassMenuOptionFunc(wxCommandEvent& event)
 {
 	Manager::Get()->GetLogManager()->Log(_T("New Uml Class Option Function Invoked"));
@@ -214,24 +247,25 @@ void UmlBlocks::SavePngMenuOptionFunc(wxCommandEvent& event)
 
 void UmlBlocks::EditorFileSwitched(CodeBlocksEvent& event)
 {
-	Manager::Get()->GetLogManager()->Log(_T("Editor Switched File"));
+	//Manager::Get()->GetLogManager()->Log(_T("Editor Switched File"));
 	if (Manager::Get()->GetEditorManager()->GetActiveEditor()->GetTitle().EndsWith(_T(".cbd"))) {
-		Manager::Get()->GetLogManager()->Log(_T("File is a diagram"));
+	//	Manager::Get()->GetLogManager()->Log(_T("File is a diagram"));
 		SetUmlTools(true);
 	}
 	else {
-		Manager::Get()->GetLogManager()->Log(_T("File is a text"));
+	//	Manager::Get()->GetLogManager()->Log(_T("File is a text"));
 		SetUmlTools(false);
 	}
 }
 
 void UmlBlocks::SetUmlTools(bool a)
 {
+	/*
     if (a)
         Manager::Get()->GetLogManager()->Log(_T("Tools Activated"));
 	else
         Manager::Get()->GetLogManager()->Log(_T("Tools Deactivated"));
-
+    */
 	UMLMenu->Enable(NewClassMenuOptionId,a);
 	UMLMenu->Enable(RevEngiMenuOptionId,a);
 	UMLMenu->Enable(GenCodeMenuOptionId,a);

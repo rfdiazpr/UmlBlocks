@@ -25,7 +25,7 @@ bool NewEntityDialog::Create(int a)
 
 void NewEntityDialog::Initialize()
 {
-    wxDialog::Create(Manager::Get()->GetAppWindow(),Manager::Get()->GetAppWindow()->GetId(), _T("dat a class"),wxDefaultPosition,wxSize(500,500));
+    wxDialog::Create(Manager::Get()->GetAppWindow(),Manager::Get()->GetAppWindow()->GetId(), _("dat a class"),wxDefaultPosition,wxSize(500,500));
     radbox1 = new wxRadioBox(this,this->GetId(),_("Options"),wxPoint(5,70),wxSize(485,150));
     choice11 = new wxRadioButton(this,this->GetId(), _("Choice"),wxPoint(10,20));
     choice12 = new wxRadioButton(this,this->GetId(), _("Choice"),wxPoint(10,40));

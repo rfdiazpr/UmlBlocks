@@ -3,7 +3,7 @@
     <SdkVersion major="1" minor="25"  release="0" />
     <Plugin name="UmlBlocks">
         <Value title="Uml::Blocks" />
-        <Value version="0.2" />
+        <Value version="0.3" />
         <Value description="" />
         <Value author="Lex" />
         <Value authorEmail="lex@pulsewave.co" />

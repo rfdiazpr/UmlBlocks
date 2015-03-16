@@ -1,14 +1,9 @@
 #include "MemberVar.hpp"
 #include "Utilities.hpp"
 
-MemberVar::MemberVar(const wxString& a_name,
-					 const wxString& a_type,
-					 Accessibility a_access,
-					 int a_array,
-					 int a_pointer,
-					 bool a_reference,
-					 bool a_static,
-					 bool a_const,
+MemberVar::MemberVar(const wxString& a_name, const wxString& a_type,
+					 Accessibility a_access, int a_array, int a_pointer,
+					 bool a_reference, bool a_static, bool a_const,
 					 const wxString& a_defval)
 	: Member(a_name, a_type, a_access, a_array, a_pointer, a_reference, a_static, a_const),
 	m_DefaultVal(a_defval)
@@ -24,6 +19,22 @@ MemberVar::MemberVar(const wxString& a_name,
 MemberVar::~MemberVar()
 {
     //dtor
+}
+
+const wxString& MemberVar::GetDefaultValue()
+{
+	return m_DefaultVal;
+}
+
+void MemberVar::SetDefaultValue(wxString a)
+{
+	m_DefaultVal = a.Trim(false).Trim();
+	UpdateUmlString();
+}
+
+MemberGroup MemberVar::GetMemberGroup()
+{
+	return Variables;
 }
 
 void MemberVar::CalcUmlString()

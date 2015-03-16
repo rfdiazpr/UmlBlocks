@@ -1,14 +1,18 @@
 #ifndef Member_HPP
 #define Member_HPP
+
 #include <wx/string.h>
 #include <wx/gdicmn.h>
 
-enum Accessibility{
+enum Accessibility
+{
 	Public = 0,
 	Protected = 1,
 	Private = 2,
 };
-enum MemberGroup{
+
+enum MemberGroup
+{
 	Variables,
 	Functions,
 };
@@ -16,51 +20,47 @@ enum MemberGroup{
 class Member
 {
     public:
-        Member(const wxString& a_name = _T("NewMember"),
-			   const wxString& a_type = _T("void"),
-			   Accessibility a_access = Public,
-			   int a_array = 0,
-			   unsigned int a_pointer = 0,
-			   bool a_reference = false,
-			   bool a_static = false,
-			   bool a_const = false);
+        Member(const wxString& a_name = _T("NewMember"), const wxString& a_type = _T("void"),
+			   Accessibility a_access = Public, int a_array = 0,
+			   unsigned int a_pointer = 0, bool a_reference = false,
+			   bool a_static = false, bool a_const = false);
+
         virtual ~Member();
 
-        //virtual const wxString& GetUmlString() const {return m_UmlString;}
         const wxString& GetUmlString();
 
-        const wxString& GetName() const {return m_Name;}
-        const wxString& GetType() const {return m_Type;}
-        bool IsArray() const {return m_Array;}
-        int GetArraySize() const {return m_ArraySize;}
-        bool GetArray() const {return m_Array;}
-        bool IsStatic() const {return m_Static;}
-        bool IsConst() const {return m_Const;}
-        bool IsPointer() const {return m_Pointer;}
-        int GetPointerDepth() const {return m_PointerDepth;}
-        bool IsReference() const {return m_Reference;}
-        Accessibility GetAccessLevel() const {return m_Access;}
-		virtual MemberGroup GetMemberGroup() = 0;
+        const wxString& GetName() const ;
+        const wxString& GetType() const ;
+        bool IsArray() const ;
+        int GetArraySize() const ;
+        bool GetArray() const ;
+        bool IsStatic() const ;
+        bool IsConst() const ;
+        bool IsPointer() const ;
+        int GetPointerDepth() const ;
+        bool IsReference() const ;
+        Accessibility GetAccessLevel() const ;
 
-        void SetName(wxString a) {m_Name = a.Trim(false).Trim(); UpdateUmlString();}
-        void SetType(wxString a) {m_Type = a.Trim(false).Trim(); UpdateUmlString();}
-        void IsArray(bool a) {m_Array = a; UpdateUmlString();}
-        void SetArraySize(int a) {m_ArraySize = a; UpdateUmlString();}
-        void SetAccessLevel(Accessibility a) {m_Access = a; UpdateUmlString();}
-        void IsPointer(bool a) {m_Pointer = a; UpdateUmlString();}
-        void SetPointerDepth(int a) {m_PointerDepth = a; UpdateUmlString();}
-        void IsReference(bool a) {m_Reference = a; UpdateUmlString();}
-        void IsStatic(bool a) {m_Static = a; UpdateUmlString();}
-        void IsConst(bool a) {m_Const = a; UpdateUmlString();}
+	virtual MemberGroup GetMemberGroup() = 0;
+
+        void SetName(wxString a) ;
+        void SetType(wxString a) ;
+        void IsArray(bool a) ;
+        void SetArraySize(int a) ;
+        void SetAccessLevel(Accessibility a) ;
+        void IsPointer(bool a) ;
+        void SetPointerDepth(int a) ;
+        void IsReference(bool a) ;
+        void IsStatic(bool a) ;
+        void IsConst(bool a) ;
 
     protected:
-        //virtual void UpdateUmlString();
-        void UpdateUmlString() {m_UmlRefresh = true;}
+        void UpdateUmlString();
         virtual void CalcUmlString();
-        //bool NeedUmlRefresh() {return m_UmlRefresh;}
-        //void DoUmlRefresh(bool a = true) {m_UmlRefresh = a;}
-        const wxString& GetRawUmlString() {return m_UmlString;}
-        void SetUmlString(const wxString& a) {m_UmlString = a;}
+        //bool NeedUmlRefresh() ;
+        //void DoUmlRefresh(bool a = true) ;
+        const wxString& GetRawUmlString() ;
+        void SetUmlString(const wxString& a) ;
 
     private:
         wxString m_Name;
@@ -70,13 +70,13 @@ class Member
         Accessibility m_Access;
         bool m_Pointer;
         int m_PointerDepth;
-		bool m_Reference;
+	bool m_Reference;
         bool m_Static;
         bool m_Const;
 
         wxString m_UmlString;
 /// LETARTARE
-        bool m_UmlRefresh ; // = true;
+        bool m_UmlRefresh ;
 
 };
 

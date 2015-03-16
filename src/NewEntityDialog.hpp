@@ -14,7 +14,9 @@ class NewEntityDialog : public wxDialog
         void Initialize();
         void ShowWidgetsA();
         void DeactivateWidgets();
+
     protected:
+
     private:
         wxRadioBox* radbox1;
         wxRadioButton* choice11;

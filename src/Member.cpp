@@ -1,22 +1,12 @@
 #include "Member.hpp"
 #include "Utilities.hpp"
 
-Member::Member(const wxString& a_name,
-			   const wxString& a_type,
-			   Accessibility a_access,
-			   int a_array,
-			   unsigned int a_pointer,
-			   bool a_reference,
-			   bool a_static,
-			   bool a_const)
-	: m_Name(a_name),
-	m_Type(a_type),
-	m_Access(a_access),
-	m_PointerDepth(a_pointer),
-	m_Reference(a_reference),
-	m_Static(a_static),
-	m_Const(a_const),
-	m_ArraySize(a_array),
+Member::Member(const wxString& a_name, const wxString& a_type,
+			   Accessibility a_access, int a_array,
+			   unsigned int a_pointer, bool a_reference,
+			   bool a_static,  bool a_const)
+	: m_Name(a_name), m_Type(a_type), m_Access(a_access), m_PointerDepth(a_pointer),
+	m_Reference(a_reference), m_Static(a_static), m_Const(a_const), m_ArraySize(a_array),
 	/// LETARTARE
 	m_UmlRefresh(true)
 {
@@ -107,4 +97,130 @@ void Member::CalcUmlString()
 	}
 
     m_UmlString = strng;
+}
+
+const wxString& Member::GetName() const
+{
+	return m_Name;
+}
+
+const wxString& Member::GetType() const
+{
+	return m_Type;
+}
+
+bool Member::IsArray() const
+{
+	return m_Array;
+}
+
+int Member::GetArraySize() const
+{
+	return m_ArraySize;
+}
+
+bool Member::GetArray() const
+{
+	return m_Array;
+}
+
+bool Member::IsStatic() const
+{
+	return m_Static;
+}
+
+bool Member::IsConst() const
+{
+	return m_Const;
+}
+
+bool Member::IsPointer() const
+{
+	return m_Pointer;
+}
+
+int Member::GetPointerDepth() const
+{
+	return m_PointerDepth;
+}
+
+bool Member::IsReference() const
+{
+	return m_Reference;
+}
+
+Accessibility Member::GetAccessLevel() const
+{
+	return m_Access;
+}
+
+void Member::SetName(wxString a)
+{
+	m_Name = a.Trim(false).Trim();
+	UpdateUmlString();
+}
+
+void Member::SetType(wxString a)
+{
+	m_Type = a.Trim(false).Trim();
+	UpdateUmlString();
+}
+
+void Member::IsArray(bool a)
+{
+	m_Array = a;
+	UpdateUmlString();
+}
+
+void Member::SetArraySize(int a)
+{
+	m_ArraySize = a; UpdateUmlString();
+}
+
+void Member::SetAccessLevel(Accessibility a)
+{
+	m_Access = a; UpdateUmlString();
+}
+
+void Member::IsPointer(bool a)
+{
+	m_Pointer = a; UpdateUmlString();
+}
+
+void Member::SetPointerDepth(int a)
+{
+	m_PointerDepth = a; UpdateUmlString();
+}
+
+void Member::IsReference(bool a)
+{
+	m_Reference = a; UpdateUmlString();
+}
+
+void Member::IsStatic(bool a)
+{
+	m_Static = a; UpdateUmlString();
+}
+
+void Member::IsConst(bool a)
+{
+	m_Const = a; UpdateUmlString();
+}
+
+void Member::UpdateUmlString()
+{
+	m_UmlRefresh = true;
+}
+
+//bool Member::NeedUmlRefresh() {return m_UmlRefresh;}
+//void Member::DoUmlRefresh(bool a = true) {m_UmlRefresh = a;}
+
+const wxString& Member::GetRawUmlString()
+{
+	return m_UmlString;
+}
+
+void Member::SetUmlString(const wxString& a)
+{
+	m_UmlString = a;
 }

@@ -6,7 +6,8 @@ BEGIN_EVENT_TABLE(UmlCanvas, wxSFShapeCanvas)
 END_EVENT_TABLE()
 
 UmlCanvas::UmlCanvas(wxSFDiagramManager* manager, UmlEditor* editor)
-	: wxSFShapeCanvas(manager, editor, wxID_ANY, wxDefaultPosition, editor->GetSize(), wxHSCROLL | wxVSCROLL | wxSTATIC_BORDER)
+	: wxSFShapeCanvas(manager, editor, wxID_ANY, wxDefaultPosition,
+	 editor->GetSize(), wxHSCROLL | wxVSCROLL | wxSTATIC_BORDER)
 // LETARTARE
 	 ,EditDiag (0), m_Editor(editor)
 {

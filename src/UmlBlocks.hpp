@@ -22,17 +22,33 @@
 class UmlBlocks : public cbPlugin
 {
     public:
+        /** Constructor */
         UmlBlocks();
+
+        /** Destructor      */
         virtual ~UmlBlocks();
+
+        /** Invoke configuration dialog. */
         virtual int Configure();
+
+        /** Return the plugin's configuration priority.
+          * This is a number (default is 50) that is used to sort plugins
+          * in configuration dialogs. Lower numbers mean the plugin's
+          * configuration is put higher in the list.
+          */
         virtual int GetConfigurationPriority() const { return 50; }
+
+        /** Return the configuration group for this plugin. Default is cgUnknown.
+          * Notice that you can logically OR more than one configuration groups,
+          * so you could set it, for example, as "cgCompiler | cgContribPlugin".
+          */
         virtual int GetConfigurationGroup() const { return cgContribPlugin; }
 
         /** Return plugin's configuration panel.
           * @param parent The parent window.
           * @return A pointer to the plugin's cbConfigurationPanel. Is is deleted by the caller.
           */
-        virtual cbConfigurationPanel* GetConfigurationPanel(wxWindow* parent){ return 0; }
+        virtual cbConfigurationPanel* GetConfigurationPanel(wxWindow* parent) ;
 
         /** Return plugin's configuration panel for projects.
           * The panel returned from this function will be added in the project's
@@ -41,7 +57,8 @@ class UmlBlocks : public cbPlugin
           * @param project The project that is being edited.
           * @return A pointer to the plugin's cbConfigurationPanel. It is deleted by caller.
           */
-        virtual cbConfigurationPanel* GetProjectConfigurationPanel(wxWindow* parent, cbProject* project){ return 0; }
+        virtual cbConfigurationPanel* GetProjectConfigurationPanel(wxWindow* parent, cbProject* project) { return 0; }
+
         virtual void BuildMenu(wxMenuBar* menuBar);
 
         /** This method is called by Code::Blocks core modules (EditorManager,
@@ -65,6 +82,7 @@ class UmlBlocks : public cbPlugin
         virtual void OnAttach();
         virtual void OnRelease(bool appShutDown);
 
+
     private:
 		// Variables
         wxMenu* NewFileMenu ;// = 0; //Good old file menu
@@ -75,10 +93,14 @@ class UmlBlocks : public cbPlugin
 
 		// Events
         void NewUmlMenuOptionFunc(wxCommandEvent&);
+        /// LT
+        void OnMenuSettings( wxCommandEvent& event);
+        //
         void NewClassMenuOptionFunc(wxCommandEvent&);
         void RevEngiMenuOptionFunc(wxCommandEvent&);
         void GenCodeMenuOptionFunc(wxCommandEvent&);
         void SavePngMenuOptionFunc(wxCommandEvent&);
+
         void EditorFileSwitched(CodeBlocksEvent&);
 
         DECLARE_EVENT_TABLE();

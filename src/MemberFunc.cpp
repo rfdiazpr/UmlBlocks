@@ -1,17 +1,10 @@
 #include "MemberFunc.hpp"
 #include "Utilities.hpp"
 
-MemberFunc::MemberFunc(const wxString& a_name,
-					   const wxString& a_type,
-					   Accessibility a_access,
-					   const std::vector<MemberVar>& a_parameters,
-					   int a_array,
-					   int a_pointer,
-					   bool a_reference,
-					   bool a_static,
-					   bool a_const,
-					   bool a_virtual,
-					   bool a_purevirtual)
+MemberFunc::MemberFunc(const wxString& a_name, const wxString& a_type,
+					   Accessibility a_access, const std::vector<MemberVar>& a_parameters,
+					   int a_array, int a_pointer, bool a_reference, bool a_static,
+					   bool a_const, bool a_virtual, bool a_purevirtual)
 	: Member(a_name, a_type, a_access, a_array, a_pointer, a_reference, a_static, a_const),
 	m_Parameters(a_parameters),
 	m_Virtual(a_virtual),
@@ -28,6 +21,41 @@ MemberFunc::MemberFunc(const wxString& a_name,
 MemberFunc::~MemberFunc()
 {
     //dtor
+}
+
+bool MemberFunc::IsVirtual() const
+{
+	return m_Virtual;
+}
+
+bool MemberFunc::IsPureVirtual() const
+{
+	return m_PureVirtual;
+}
+
+MemberVar& MemberFunc::GetParameter(int a)
+{
+	return m_Parameters[a];
+}
+
+unsigned int MemberFunc::GetParameterCount()
+{
+	return m_Parameters.size();
+}
+
+void MemberFunc::IsVirtual(bool a)
+{
+	m_Virtual = a;
+	UpdateUmlString();
+}
+void MemberFunc::IsPureVirtual(bool a)
+{
+	m_PureVirtual = a; UpdateUmlString();
+}
+
+MemberGroup MemberFunc::GetMemberGroup()
+{
+	return Functions;
 }
 
 void MemberFunc::CalcUmlString()

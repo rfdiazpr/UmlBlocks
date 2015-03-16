@@ -8,7 +8,9 @@
 #include "QuickEditPopup.hpp"
 
 class UmlEditor;
-class UmlCanvas : public wxSFShapeCanvas {
+
+class UmlCanvas : public wxSFShapeCanvas
+{
 public:
 	UmlCanvas(wxSFDiagramManager* manager, UmlEditor* editor);
 	~UmlCanvas();
@@ -22,10 +24,12 @@ public:
 	void OnConnectionFinished(wxSFLineShape* connection);
 	void OnMouseWheel(wxMouseEvent& event);
 	void OnBeginDrag(const wxPoint &pos);
+
 protected:
 private:
 	DECLARE_EVENT_TABLE()
-	// Gotta love a complex quick edit dialog feature, spanning across many individual function. Them pointers. Dumb notes incoming!:
+	// Gotta love a complex quick edit dialog feature, spanning across many
+	// individual function. Them pointers. Dumb notes incoming!:
 	// Double click, see if you want it created and shown.
 	// Click anywhere and the box disappears and gets destroyed without changes
 	// Press enter and the box will disappear, change the data according to the dialog and destroy it
